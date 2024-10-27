@@ -1,0 +1,49 @@
+[package]
+name = "billistestingstuff"
+version = "0.3.1"
+edition = "2021"
+authors = ["williamjhyland <williamjhyland@outlook.com>"]
+resolver = "2"
+# TODO(RSDK-8992): Upgrade rust to latest esp-rs version
+rust-version = "1.76"
+
+[profile.release]
+opt-level = "s"
+
+[profile.dev]
+debug = true # Symbols are nice and they don't increase the size on Flash
+opt-level = "z"
+
+[dependencies.micro-rdk]
+git = "https://github.com/viamrobotics/micro-rdk.git"
+version = "0.3.1"
+rev = "fe2e0738"
+features = [
+  "esp32",
+  "binstart",
+  
+]
+
+[dependencies]
+embedded-svc = "0.27"
+embedded-hal = { version = "~0.2", features = ["unproven"]}
+log = "0.4"
+async-channel = "2"
+futures-lite = "2"
+
+[build-dependencies]
+cargo_metadata = "0.18"
+embuild = "0.32"
+regex = "1.11"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+[package.metadata.esp-idf-sys]
+# TODO(RSDK-8998): Upgrade ESP-IDF to latest stable
+esp_idf_version = "v4.4.8"
+esp_idf_tools_install_dir = "custom:target/.embuild/espressif"
+esp_idf_sdkconfig_defaults = [
+  "sdkconfig.defaults",
+]
+
+
